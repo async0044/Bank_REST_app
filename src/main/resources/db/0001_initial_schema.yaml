@@ -1,0 +1,140 @@
+databaseChangeLog:
+- changeSet:
+    id: 1763549966565-1
+    author: 117H7 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: balance
+            type: FLOAT8
+        - column:
+            name: added_on
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: cards_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: user_id
+            type: BIGINT
+        - column:
+            name: card_number
+            type: VARCHAR(255)
+        - column:
+            name: owner_firstname
+            type: VARCHAR(255)
+        - column:
+            name: owner_lastname
+            type: VARCHAR(255)
+        - column:
+            name: status
+            type: VARCHAR(255)
+        tableName: cards
+- changeSet:
+    id: 1763549966565-2
+    author: 117H7 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: BIGINT
+        - column:
+            name: role
+            type: VARCHAR(255)
+        tableName: roles
+- changeSet:
+    id: 1763549966565-3
+    author: 117H7 (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 50
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: cards_seq
+        startValue: 1
+- changeSet:
+    id: 1763549966565-4
+    author: 117H7 (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 50
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: users_seq
+        startValue: 1
+- changeSet:
+    id: 1763549966565-5
+    author: 117H7 (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: added_on
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: users_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: email
+            type: VARCHAR(255)
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            name: password
+            type: VARCHAR(255)
+        - column:
+            name: username
+            type: VARCHAR(255)
+        tableName: users
+- changeSet:
+    id: 1763549966565-6
+    author: 117H7 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: roles
+        constraintName: fk97mxvrajhkq19dmvboprimeg1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1763549966565-7
+    author: 117H7 (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: cards
+        constraintName: fkcmanafgwbibfijy2o5isfk3d5
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+

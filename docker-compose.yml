@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: my-app-postgres
+    environment:
+      POSTGRES_DB: project_bankcards
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: gindenburg123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck: # ← добавляем healthcheck
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: Bank-Rest
+    environment:
+      DB_HOST: postgres-db
+      DB_PORT: 5432
+      DB_NAME: project_bankcards
+      DB_USERNAME: postgres
+      DB_PASSWORD: gindenburg123
+      JWT_SECRET: SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVeadQsqw5cSflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVaadQssw5c
+      DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-db:
+          condition: service_healthy
+    networks:
+      - app-network
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
