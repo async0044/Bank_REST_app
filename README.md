@@ -14,6 +14,8 @@ Spring Boot приложение с JWT-аутентификацией, базо
 
 1. Клонировать репозиторий:   
    git clone https://github.com/async0044/bank-rest-app.git
+2. Перейти в папку проекта 
+   cd bank_rest-main
 2. Запустить (docker-compose up --build)
 3. Доступ к приложению:
    API: http://localhost:8080
